@@ -1,54 +1,32 @@
-import React from 'react'
-import NavbarComp from './components/NavbarComp'
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import { Todos } from './components/Todos';
+import React, { use, useEffect, useState } from 'react'
+import './App.css';
+const ROOT_URL = 'https://kc8fdp333m.execute-api.us-east-1.amazonaws.com/dev';
 
 function App() {
-    const onDelete = (todo) => {
-      console.log("I am onDelete of todo", todo);
-  }
-  let todos = [
-    {
-      sno: 1,
-      tittle: "Go to the market",
-      desc: "You need to go to the market to buy stuff"
-    },
-    {
-      sno: 2,
-      tittle: "Go to the school",
-      desc: "You need to go to the school to study"
-    },
-    {
-      sno: 3,
-      tittle: "Go to the store",
-      desc: "You need to go to the store to buy items"
-    },
-    {
-      sno: 4,
-      tittle: "Go to the office",
-      desc: "You need to go to the office to work"
-    },
-    {
-      sno: 5,
-      tittle: "Go to the vacation",
-      desc: "You need to go to the vacations to relax"
-    },
-    {
-      sno: 6,
-      tittle: "Go to the beach",
-      desc: "You need to go to the beach to enjoy"
-    },
-    {
-      sno: 7,
-      tittle: "Go to the mountains",
-      desc: "You need to go to the market to wonder"
-    },
-  ]
+  const [data, setData] = useState([]);
+  const [users, setUsers] = useState("");
+  useEffect(() => {
+    fetch(`${ROOT_URL}/todos`)
+      .then(response => response.json())
+      .then(json => setData(json.body));
+  }, []);
+  useEffect(() => {
+    fetch(`${ROOT_URL}/users`)
+      .then(response => response.json())
+      .then(json => setUsers(json.body));
+  }, []);
   return (
     <>
-        <NavbarComp title="MY TODOS LIST"/>
-        <Todos todos={todos} onDelete={onDelete}/>
+        <h1>GETTING DATA FROM API CALL</h1>
+        {data.map(item => (
+          <div className='todo-item' key={item.id}>
+            <h3 className='todo-title'>{item.title}</h3>
+            <p className='todo-para'>Completed: {item.completed ? 'Yes' : 'No'}</p>
+          </div>
+        ))}
+        <hr />
+        <br />
+        {users && <h2>Users: {users}</h2>}
     </>
   );
 }
