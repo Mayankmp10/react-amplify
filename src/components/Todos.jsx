@@ -1,5 +1,5 @@
 import React from 'react'
-import { TodoItem } from './todoitems'
+import { TodoItem } from './todoItems.jsx'
 
 export const Todos = ({todos, onDelete}) => {
   return (
