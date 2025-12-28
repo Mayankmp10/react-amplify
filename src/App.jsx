@@ -47,8 +47,10 @@ function App() {
   ]
   return (
     <>
-        <NavbarComp title="MY TODOS LIST"/>
-        <Todos todos={todos} onDelete={onDelete}/>
+    <h1>Comming Soon</h1>
+    <h4>This is Mayank Pandey</h4>
+        {/* <NavbarComp title="MY TODOS LIST"/>
+        <Todos todos={todos} onDelete={onDelete}/> */}
     </>
   );
 }
